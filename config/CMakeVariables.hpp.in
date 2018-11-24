@@ -1,0 +1,8 @@
+//
+// Created by Wojciech Ormaniec on 24.11.18.
+// Copyright (c) 2018 Industry of Black. All rights reserved.
+//
+#ifndef TSPBRUTE_CMAKEVARIABLES_H_IN_HPP
+#define TSPBRUTE_CMAKEVARIABLES_H_IN_HPP
+
+#endif //TSPBRUTE_CMAKEVARIABLES_H_IN_HPP
