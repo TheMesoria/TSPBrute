@@ -3,3 +3,5 @@ bin
 .idea
 
 include/CMakeVariables.hpp
+
+*.log

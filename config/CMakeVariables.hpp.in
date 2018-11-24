@@ -2,7 +2,9 @@
 // Created by Wojciech Ormaniec on 24.11.18.
 // Copyright (c) 2018 Industry of Black. All rights reserved.
 //
-#ifndef TSPBRUTE_CMAKEVARIABLES_H_IN_HPP
-#define TSPBRUTE_CMAKEVARIABLES_H_IN_HPP
+#pragma once
 
-#endif //TSPBRUTE_CMAKEVARIABLES_H_IN_HPP
+#include <string>
+
+std::string const CMAKE_CURRENT_BINARY_DIR = "@CMAKE_CURRENT_BINARY_DIR@/";
+std::string const CMAKE_CURRENT_SOURCE_DIR = "@CMAKE_CURRENT_SOURCE_DIR@/";

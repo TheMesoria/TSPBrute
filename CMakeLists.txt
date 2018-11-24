@@ -23,6 +23,8 @@ LINK_DIRECTORIES( ${SPDLOG_INSTALL_LOCATION}/lib )
 INCLUDE_DIRECTORIES( include )
 
 ADD_EXECUTABLE( TSPBrute
-				main.cpp )
+				main.cpp
+				include/CMakeVariables.hpp
+				)
 
 ADD_DEPENDENCIES( TSPBrute SPDLOG )
