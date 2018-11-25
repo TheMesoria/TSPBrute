@@ -14,9 +14,11 @@ void StandardBruteForce::start()
 
 	for( auto i = 0u; i < currentCities_.size(); i++ )
 	{
+		spdlog::get( "main" )->debug( "Starting the {} branch!", i + 1 );
+
 		currentCity = currentCities_.front();
 		currentCities_.pop_front();
-		calculateNext( 0, currentCity );
+		calculateNext( 0, currentCity, currentCity );
 		currentCities_.push_back( currentCity );
 	}
 }
@@ -30,26 +32,27 @@ StandardBruteForce::StandardBruteForce( Map const& map )
 	for( auto i = 0u; i < valueMap_.size(); i++ ) { currentCities_.push_back( i ); }
 }
 
-void StandardBruteForce::calculateNext( unsigned value, unsigned idx )
+void StandardBruteForce::calculateNext( unsigned value, unsigned idx, unsigned startIdx )
 {
 	if( currentCities_.empty() )
 	{
-		spdlog::get( "main" )->info( "Found branch end!" );
-		spdlog::get( "main" )->info( "Value: {}, while best is: {}", value, currentBest_ );
-		if( value < currentBest_ )currentBest_ = value;
+		spdlog::get( "main" )->debug( "Found branch end!" );
+		spdlog::get( "main" )->debug( "Value: {}, while best is: {}", value, currentBest_ );
+		auto distance = valueMap_[ idx ][ startIdx ];
+		value+=distance;
+		if( value < currentBest_ ) swapCurrentBest( value );
 	}
+	unsigned  currentCity;
 	for( auto i = 0u; i < currentCities_.size(); i++ )
 	{
-		auto distance = valueMap_[ idx ][ i ];
+		auto distance = valueMap_[ idx ][ currentCities_.front() ];
 		if( distance == 0 ) continue;
 
-		visitedCities_.push_back( currentCities_.front() );
+		currentCity = currentCities_.front();
 		currentCities_.pop_front();
 		value += distance;
-		calculateNext( value, visitedCities_.back() );
-		value -= distance;
-		currentCities_.push_back( visitedCities_.back() );
-		visitedCities_.pop_back();
+		calculateNext( value, currentCity, startIdx );
+		currentCities_.push_back( currentCity );
 	}
 }
 

@@ -5,6 +5,7 @@
 #pragma once
 
 
+#include <spdlog/spdlog.h>
 #include "Algorithm.hpp"
 #include "Map.hpp"
 
@@ -14,16 +15,15 @@ class StandardBruteForce
 	const Map     & map_;
 	const ValueMap& valueMap_;
 	std::list<unsigned> currentCities_;
-	std::list<unsigned> visitedCities_;
 
-	unsigned            currentBest_;
-	std::list<unsigned> currentBestCities_;
+	unsigned currentBest_;
 public:
 	explicit StandardBruteForce( Map const& map );
-	~StandardBruteForce() override = default;
+
+	~StandardBruteForce() override { spdlog::get( "main" )->info( "Best: {}.", currentBest_ ); };
 
 	void start() override;
-	void calculateNext( unsigned value, unsigned idx );
-	void swapCurrentBest( unsigned value);
+	void calculateNext( unsigned value, unsigned idx, unsigned startIdx );
+	void swapCurrentBest( unsigned value );
 };
 

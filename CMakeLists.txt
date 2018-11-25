@@ -32,4 +32,6 @@ ADD_EXECUTABLE( TSPBrute
 				include/StandardBruteForce.hpp
 				src/OptimalMTBruteForce.cpp include/OptimalMTBruteForce.hpp )
 
+TARGET_LINK_LIBRARIES(TSPBrute pthread)
+
 ADD_DEPENDENCIES( TSPBrute SPDLOG )
