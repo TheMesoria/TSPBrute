@@ -30,6 +30,6 @@ ADD_EXECUTABLE( TSPBrute
 				include/Algorithm.hpp
 				src/StandardBruteForce.cpp
 				include/StandardBruteForce.hpp
-				)
+				src/OptimalMTBruteForce.cpp include/OptimalMTBruteForce.hpp )
 
 ADD_DEPENDENCIES( TSPBrute SPDLOG )
