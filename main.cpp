@@ -2,6 +2,7 @@
 
 #include <spdlog/spdlog.h>
 #include <CMakeVariables.hpp>
+#include <Map.hpp>
 
 int main()
 {
@@ -9,8 +10,10 @@ int main()
 	auto logger = std::make_shared<spdlog::logger>( "main", sink );
 	spdlog::register_logger( logger );
 
+	spdlog::get( "main" )->set_level( spdlog::level::debug );
 	spdlog::get( "main" )->info( "Initialisation done." );
 
-	std::cout << "Hello, World!" << std::endl;
+	Map map( "/wi29.city" );
+
 	return EXIT_SUCCESS;
 }

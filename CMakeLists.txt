@@ -27,9 +27,9 @@ ADD_EXECUTABLE( TSPBrute
 				include/CMakeVariables.hpp
 				src/Map.cpp
 				include/Map.hpp
-#				include/Algorithm.hpp
-#				src/StandardBruteForce.cpp
-#				include/StandardBruteForce.hpp
+				include/Algorithm.hpp
+				src/StandardBruteForce.cpp
+				include/StandardBruteForce.hpp
 				)
 
 ADD_DEPENDENCIES( TSPBrute SPDLOG )
