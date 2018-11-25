@@ -18,13 +18,13 @@ int main()
 	spdlog::get( "main" )->flush_on( spdlog::level::info );
 	spdlog::get( "main" )->info( "Initialisation done." );
 
-	Map map( "/own4.city" );
+	Map map( "/burma14.city" );
 
 	std::unique_ptr<Algorithm> sbf   = std::make_unique<StandardBruteForce>( map );
 	std::unique_ptr<Algorithm> omtbf = std::make_unique<OptimalMTBruteForce>( map );
 	std::unique_ptr<Algorithm> babmtbf = std::make_unique<BranchAndBoundMTBruteForce>( map );
 
-	sbf->start();
+//	sbf->start();
 	omtbf->start();
 	babmtbf->start();
 
