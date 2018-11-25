@@ -7,7 +7,8 @@
 
 class Algorithm
 {
-	virtual ~Algorithm() = 0;
+public:
+	virtual ~Algorithm() = default;
 
 	virtual void start() = 0;
 };

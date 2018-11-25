@@ -24,7 +24,7 @@ Map::Map( std::string const& fileName )
 	file.close();
 }
 
-const ValueMap& Map::get()
+const ValueMap& Map::get() const
 {
 	return map_;
 }
@@ -117,5 +117,26 @@ void Map::loadCityNodes( std::list<std::pair<float, float>> const& cityCoords )
 		print += " ]";
 
 		spdlog::get( "main" )->debug( print );
+		map_.push_back( distanceVector );
 	}
+}
+
+std::string const& Map::getName() const
+{
+	return name_;
+}
+
+std::string const& Map::getType() const
+{
+	return type_;
+}
+
+std::string const& Map::getEdgeWeightType() const
+{
+	return edgeWeightType_;
+}
+
+int Map::getDimension() const
+{
+	return dimension_;
 }

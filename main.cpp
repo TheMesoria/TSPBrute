@@ -3,6 +3,8 @@
 #include <spdlog/spdlog.h>
 #include <CMakeVariables.hpp>
 #include <Map.hpp>
+#include <Algorithm.hpp>
+#include <StandardBruteForce.hpp>
 
 int main()
 {
@@ -13,7 +15,11 @@ int main()
 	spdlog::get( "main" )->set_level( spdlog::level::debug );
 	spdlog::get( "main" )->info( "Initialisation done." );
 
-	Map map( "/wi29.city" );
+	Map map( "/own9.city" );
+
+	std::unique_ptr<Algorithm> alg = std::make_unique<StandardBruteForce>( map );
+
+	alg->start();
 
 	return EXIT_SUCCESS;
 }

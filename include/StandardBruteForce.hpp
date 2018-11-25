@@ -5,8 +5,25 @@
 #pragma once
 
 
-class StandardBruteForce
-{
+#include "Algorithm.hpp"
+#include "Map.hpp"
 
+class StandardBruteForce
+		: public Algorithm
+{
+	const Map     & map_;
+	const ValueMap& valueMap_;
+	std::list<unsigned> currentCities_;
+	std::list<unsigned> visitedCities_;
+
+	unsigned            currentBest_;
+	std::list<unsigned> currentBestCities_;
+public:
+	explicit StandardBruteForce( Map const& map );
+	~StandardBruteForce() override = default;
+
+	void start() override;
+	void calculateNext( unsigned value, unsigned idx );
+	void swapCurrentBest( unsigned value);
 };
 

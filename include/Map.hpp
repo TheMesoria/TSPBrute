@@ -22,9 +22,14 @@ class Map
 	std::vector<std::vector<int>> map_;
 
 public:
-	Map( std::string const& fileName );
+	explicit Map( std::string const& fileName );
 
-	const ValueMap& get();
+	const ValueMap& get() const;
+
+	std::string const& getName() const;
+	std::string const& getType() const;
+	std::string const& getEdgeWeightType() const;
+	int getDimension() const;
 
 private:
 	void readContent( std::fstream& file );
