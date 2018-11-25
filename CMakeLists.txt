@@ -30,7 +30,7 @@ ADD_EXECUTABLE( TSPBrute
 				include/Algorithm.hpp
 				src/StandardBruteForce.cpp
 				include/StandardBruteForce.hpp
-				src/OptimalMTBruteForce.cpp include/OptimalMTBruteForce.hpp )
+				src/OptimalMTBruteForce.cpp include/OptimalMTBruteForce.hpp src/BranchAndBoundMTBruteForce.cpp include/BranchAndBoundMTBruteForce.hpp )
 
 TARGET_LINK_LIBRARIES(TSPBrute pthread)
 

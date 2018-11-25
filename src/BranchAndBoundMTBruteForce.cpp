@@ -2,12 +2,14 @@
 // Created by Wojciech Ormaniec on 25.11.18.
 // Copyright (c) 2018 Industry of Black. All rights reserved.
 //
-#include "OptimalMTBruteForce.hpp"
+#include "BranchAndBoundMTBruteForce.hpp"
+
 
 #include <spdlog/spdlog.h>
+#include <BranchAndBoundMTBruteForce.hpp>
 
 
-void OptimalMTBruteForce::start()
+void BranchAndBoundMTBruteForce::start()
 {
 	spdlog::get( "main" )->info( __func__ );
 
@@ -20,14 +22,13 @@ void OptimalMTBruteForce::start()
 		currentCity = currentCities_.front();
 		currentCities_.pop_front();
 
-		threadList_.emplace_back( &OptimalMTBruteForce::run, this, currentCity, currentCities_ );
-//		calculateNext( 0, currentCity, currentCity, currentCities_ );
+		threadList_.emplace_back( &BranchAndBoundMTBruteForce::run, this, currentCity, currentCities_ );
 		currentCities_.push_back( currentCity );
 	}
 	for( auto& thread:threadList_ ) { thread.join(); }
 }
 
-OptimalMTBruteForce::OptimalMTBruteForce( Map const& map )
+BranchAndBoundMTBruteForce::BranchAndBoundMTBruteForce( Map const& map )
 		: map_( map )
 		  , valueMap_( map.get() )
 		  , currentBest_( INT32_MAX )
@@ -36,7 +37,11 @@ OptimalMTBruteForce::OptimalMTBruteForce( Map const& map )
 	for( auto i = 0u; i < valueMap_.size(); i++ ) { currentCities_.push_back( i ); }
 }
 
-void OptimalMTBruteForce::calculateNext( unsigned value, unsigned idx, unsigned startIdx, std::list<unsigned>& cities )
+void BranchAndBoundMTBruteForce::calculateNext(
+		unsigned value
+		, unsigned idx
+		, unsigned startIdx
+		, std::list<unsigned>& cities )
 {
 	if( cities.empty() )
 	{
@@ -55,22 +60,32 @@ void OptimalMTBruteForce::calculateNext( unsigned value, unsigned idx, unsigned 
 		currentCity = cities.front();
 		cities.pop_front();
 		value += distance;
+		if(testCurrentValue(value))
+		{
+			cities.push_back( currentCity );
+			continue;
+		}
 		calculateNext( value, currentCity, startIdx, cities );
 		cities.push_back( currentCity );
 	}
 }
 
-void OptimalMTBruteForce::testCurrentBest( unsigned value )
+void BranchAndBoundMTBruteForce::testCurrentBest( unsigned value )
 {
-	static std::mutex           mutex;
-	std::lock_guard<std::mutex> lockGuard( mutex );
+	std::lock_guard<std::mutex> lockGuard( lengthMutex_ );
 
 	if( value > currentBest_ ) return;
 	spdlog::get( "main" )->info( "Swapping the best value! value({}) < currentBest_({})", value, currentBest_ );
 	currentBest_ = value;
 }
 
-void OptimalMTBruteForce::run( unsigned idx, std::list<unsigned> cities )
+void BranchAndBoundMTBruteForce::run( unsigned idx, std::list<unsigned> cities )
 {
 	calculateNext( 0, idx, idx, cities );
+}
+
+bool BranchAndBoundMTBruteForce::testCurrentValue( unsigned value )
+{
+	std::lock_guard<std::mutex> lockGuard( lengthMutex_ );
+	return currentBest_ < value;
 }

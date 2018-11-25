@@ -6,11 +6,12 @@
 
 
 #include <thread>
+#include <mutex>
 #include <spdlog/spdlog.h>
-#include "Algorithm.hpp"
 #include "Map.hpp"
+#include "Algorithm.hpp"
 
-class OptimalMTBruteForce
+class BranchAndBoundMTBruteForce
 		: public Algorithm
 {
 	const Map     & map_;
@@ -19,18 +20,19 @@ class OptimalMTBruteForce
 	std::list<unsigned>    currentCities_;
 	std::list<std::thread> threadList_;
 
-	std::mutex cityListMutex_;
+	std::mutex lengthMutex_;
 
 	unsigned currentBest_;
 public:
-	explicit OptimalMTBruteForce( Map const& map );
+	explicit BranchAndBoundMTBruteForce( Map const& map );
 
-	~OptimalMTBruteForce() override { spdlog::get( "main" )->info( "Best: {}.", currentBest_ ); };;
+	~BranchAndBoundMTBruteForce() override { spdlog::get( "main" )->info( "Best: {}.", currentBest_ ); };;
 
 	void start() override;
 private:
 	void run( unsigned idx, std::list<unsigned> cities );
 	void calculateNext( unsigned value, unsigned idx, unsigned startIdx, std::list<unsigned>& cities );
 	void testCurrentBest( unsigned value );
+	bool testCurrentValue( unsigned value );
 };
 
