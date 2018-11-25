@@ -25,6 +25,11 @@ INCLUDE_DIRECTORIES( include )
 ADD_EXECUTABLE( TSPBrute
 				main.cpp
 				include/CMakeVariables.hpp
+				src/Map.cpp
+				include/Map.hpp
+#				include/Algorithm.hpp
+#				src/StandardBruteForce.cpp
+#				include/StandardBruteForce.hpp
 				)
 
 ADD_DEPENDENCIES( TSPBrute SPDLOG )
