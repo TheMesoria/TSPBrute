@@ -108,10 +108,11 @@ int main()
     std::cerr << "RESULT : " << std::endl;
 
 
+    std::unique_ptr<Algorithm> babmtbf = std::make_unique<OptimalMTBruteForce>(map_4);
 
     start = std::chrono::steady_clock::now();
 
-    std::unique_ptr<Algorithm> babmtbf = std::make_unique<OptimalMTBruteForce>(map_4);
+    babmtbf = std::make_unique<OptimalMTBruteForce>(map_4);
     babmtbf->start();
 
     duration = std::chrono::duration_cast<std::chrono::microseconds>(
